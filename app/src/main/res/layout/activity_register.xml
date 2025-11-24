@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_app_padrao">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="32dp">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/diariodojogador_png"
+                android:layout_marginBottom="30dp"
+                android:contentDescription="Logo Diário do Jogador" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CRIE SUA CONTA"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="32dp"/>
+
+            <EditText
+                android:id="@+id/edtNomeCadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Digite seu nome completo"
+                android:textColorHint="#DDDDDD"
+                android:textColor="@color/black"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/edtEmailCadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Digite seu e-mail"
+                android:textColorHint="#DDDDDD"
+                android:textColor="@color/black"
+                android:inputType="textEmailAddress"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/edtSenhaCadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Senha"
+                android:textColorHint="#DDDDDD"
+                android:textColor="@color/black"
+                android:inputType="textPassword"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/edtConfirmSenhaCadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirme sua Senha"
+                android:textColorHint="#DDDDDD"
+                android:textColor="@color/black"
+                android:inputType="textPassword"
+                android:layout_marginTop="16dp"/>
+
+            <Button
+                android:id="@+id/btnCadastrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#2f624b"
+                android:text="CADASTRAR"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

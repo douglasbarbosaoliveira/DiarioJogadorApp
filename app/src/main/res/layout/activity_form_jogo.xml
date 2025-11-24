@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_app_padrao">
+
+    <include layout="@layout/layout_header" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="CADASTRAR NOVO JOGO"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:textAllCaps="true"
+        android:letterSpacing="0.1"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data da partida"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_marginTop="8dp"/>
+            <EditText
+                android:id="@+id/edtData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Selecione a data"
+                android:textColorHint="#DDDDDD"
+                android:textColor="@color/black"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="none" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confronto"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_marginTop="8dp"/>
+            <EditText
+                android:id="@+id/edtAdversario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Time A x Time B"
+                android:textColorHint="#DDDDDD"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Competição"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_marginTop="16dp"/>
+            <Spinner
+                android:id="@+id/spnTipo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/black"
+                android:spinnerMode="dropdown"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resultado"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_marginTop="16dp"/>
+            <Spinner
+                android:id="@+id/spnResultado"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/black"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gols marcados"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"/>
+                    <Spinner
+                        android:id="@+id/spnGols"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:backgroundTint="@color/black"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Assistências"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"/>
+                    <Spinner
+                        android:id="@+id/spnAssist"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:backgroundTint="@color/black"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Minutos em campo"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"/>
+                    <EditText
+                        android:id="@+id/edtSensacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ex: 90"
+                        android:inputType="number"
+                        android:textColorHint="#DDDDDD"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nota (0-10)"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"/>
+                    <EditText
+                        android:id="@+id/edtNota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ex: 8.5"
+                        android:inputType="numberDecimal"
+                        android:textColorHint="#DDDDDD"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comentários sobre a partida"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_marginTop="16dp"/>
+            <EditText
+                android:id="@+id/edtComentarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escreva sobre a partida..."
+                android:lines="3"
+                android:textColorHint="#DDDDDD"
+                android:textColor="@color/black"/>
+
+            <Button
+                android:id="@+id/btnSalvarJogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#2f624b"
+                android:text="SALVAR JOGO"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
