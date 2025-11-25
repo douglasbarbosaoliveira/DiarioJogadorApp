@@ -2,83 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_app_padrao">
+    android:background="@drawable/bg_app_padrao"
+    android:orientation="vertical">
 
     <include layout="@layout/layout_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="32dp">
 
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/diariodojogador_png"
-            android:layout_marginBottom="64dp"
-            android:contentDescription="Logo Diário do Jogador" />
+            android:layout_marginBottom="24dp"
+            android:contentDescription="Logo Diário do Jogador"
+            android:src="@drawable/diariodojogador_png" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_marginEnd="8dp">
+                android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/btnVerJogos"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/jogos_diariojogador"
+                    android:contentDescription="Meus Jogos"
                     android:scaleType="fitCenter"
-                    android:contentDescription="Meus Jogos" />
+                    android:src="@drawable/jogos_diariojogador" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="MEUS JOGOS"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_marginTop="8dp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_marginStart="8dp">
+                android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/btnVerTreinos"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/treinos_diariojogador"
+                    android:contentDescription="Meus Treinos"
                     android:scaleType="fitCenter"
-                    android:contentDescription="Meus Treinos" />
+                    android:src="@drawable/treinos_diariojogador" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="MEUS TREINOS"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_marginTop="8dp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
@@ -91,7 +91,7 @@
             android:backgroundTint="#4CAF50"
             android:text="MEU PERFIL"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnSair"
@@ -101,7 +101,7 @@
             android:backgroundTint="#D32F2F"
             android:text="SAIR"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

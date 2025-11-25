@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:src="@drawable/diariodojogador_png"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:text="Versão 1.0.0"
         android:textColor="#888888"
         android:textSize="14sp"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -44,10 +44,9 @@
         android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:text="Desenvolvido por:\nDouglas Barbosa de Oliveira\nLucas Casagrande Silva\nLuís Fernando França Farias\nRyan Pereira da Mota
-\n\nDisciplina:\nProgramação para Dispositivos Móveis I\n\nProfessor:\nCarlos Ronny de Sousa\n\nCurso:\nTecnologia em Desenvolvimento \nde Software Multiplataforma\n\nFaculdade de Tecnologia de Mauá\nFATEC Mauá"
+\n\nProf: Carlos Ronny de Sousa\nProgramação para Dispositivos Móveis I\nFaculdade de Tecnologia de Mauá"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/btnVoltarSobre"
