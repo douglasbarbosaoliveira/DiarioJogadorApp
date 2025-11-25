@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    android:padding="32dp">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/diariodojogador_png"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Diário do Jogador"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Versão 1.0.0"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        android:layout_marginBottom="32dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="O aplicativo definitivo para gerenciar sua carreira no futebol amador ou profissional.\nAcompanhe seus jogos, treinos e estatísticas em um só lugar."
+        android:textAlignment="center"
+        android:textColor="#444444"
+        android:textSize="16sp"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="32dp"/>
+
+    <TextView
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:text="Desenvolvido por:\nDouglas Barbosa de Oliveira\nLucas Casagrande Silva\nLuís Fernando França Farias\nRyan Pereira da Mota
+\n\nDisciplina:\nProgramação para Dispositivos Móveis I\n\nProfessor:\nCarlos Ronny de Sousa\n\nCurso:\nTecnologia em Desenvolvimento \nde Software Multiplataforma\n\nFaculdade de Tecnologia de Mauá\nFATEC Mauá"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnVoltarSobre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voltar"
+        android:backgroundTint="#CCCCCC"
+        android:textColor="@color/black"
+        android:layout_marginTop="48dp"/>
+
+</LinearLayout>

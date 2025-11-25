@@ -1,26 +1,38 @@
 package douglas.oliveira.diariojogadorapp.dao
 
 import android.content.ContentValues
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import douglas.oliveira.diariojogadorapp.models.PerfilLocal
-import android.content.Context
 
+/**
+ * DAO (Data Access Object) para o Perfil.
+ * Responsável por toda a comunicação com o banco de dados SQLite interno do celular.
+ */
 class PerfilDao(context: Context) {
 
+    // Configurações do Banco de Dados
     private val nomeBanco = "diario_jogador.db"
-    private val versaoBanco = 2 // [ATENÇÃO] Versão 2 para atualizar a estrutura
+    private val versaoBanco = 2 // Versão do banco (se mudar a estrutura, aumente este número)
     private val tabelaPerfil = "Perfil"
 
+    // Nomes das Colunas (Prática para evitar erros de digitação no SQL)
     private val colId = "id"
-    private val colUserIdApi = "user_id_api" // Coluna de vínculo
+    private val colUserIdApi = "user_id_api" // A chave que vincula este perfil ao login da API
     private val colNome = "nome"
     private val colNascimento = "data_nascimento"
     private val colTelefone = "telefone"
     private val colEndereco = "endereco"
     private val colFoto = "foto"
 
+    /**
+     * Helper interno que gerencia a criação e atualização do banco.
+     * O Android chama o onCreate automaticamente se o banco não existir no celular.
+     */
     private val dbHelper = object : SQLiteOpenHelper(context, nomeBanco, null, versaoBanco) {
+
+        // Executado apenas na primeira vez que o app é instalado/rodado
         override fun onCreate(db: SQLiteDatabase?) {
             val sql = """            
             CREATE TABLE $tabelaPerfil (            
@@ -33,19 +45,26 @@ class PerfilDao(context: Context) {
                 $colFoto TEXT                            
             )
             """
-            db?.execSQL(sql)
+            db?.execSQL(sql) // Executa o comando SQL de criação
         }
 
+        // Executado se mudar 'versaoBanco' (ex: de 1 para 2)
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            // Apaga a tabela antiga e cria a nova se a versão mudar
+            // Estratégia simples: Apaga a tabela antiga e cria uma nova
             db?.execSQL("DROP TABLE IF EXISTS $tabelaPerfil")
             onCreate(db)
         }
     }
+
+    // Obtém uma instância do banco pronta para escrita/leitura
     private val db: SQLiteDatabase = dbHelper.writableDatabase
 
-    // Salva ou Atualiza (Baseado no ID da API)
+    /**
+     * Método Inteligente: Salvar ou Atualizar (Upsert).
+     * Verifica se o usuário já tem dados salvos. Se tiver, atualiza. Se não, cria.
+     */
     fun salvarOuAtualizar(perfil: PerfilLocal) {
+        // Prepara os dados para serem enviados ao banco (Mapeia Coluna -> Valor)
         val valores = ContentValues().apply {
             put(colUserIdApi, perfil.userIdApi)
             put(colNome, perfil.nome)
@@ -55,21 +74,41 @@ class PerfilDao(context: Context) {
             put(colFoto, perfil.foto)
         }
 
-        // Tenta atualizar se já existir esse usuário da API
-        val linhas = db.update(tabelaPerfil, valores, "$colUserIdApi = ?", arrayOf(perfil.userIdApi))
+        // Tenta fazer um UPDATE na tabela onde o user_id_api for igual ao do usuário logado
+        // Retorna o número de linhas afetadas
+        val linhas = db.update(
+            tabelaPerfil,
+            valores,
+            "$colUserIdApi = ?",
+            arrayOf(perfil.userIdApi)
+        )
 
-        // Se não existe, insere
+        // Se linhas == 0, significa que o update falhou (não existe esse usuário no banco ainda)
+        // Faz um INSERT
         if (linhas == 0) {
             db.insert(tabelaPerfil, null, valores)
         }
     }
 
-    // Busca os dados APENAS do usuário logado
+    /**
+     * Busca os dados de perfil filtrando pelo ID da API.
+     * Isso garante que um usuário não veja os dados de outro no mesmo celular.
+     */
     fun recuperarPerfil(userIdApi: String): PerfilLocal? {
-        val cursor = db.query(tabelaPerfil, null, "$colUserIdApi = ?", arrayOf(userIdApi), null, null, null)
+        // Faz o SELECT * FROM Perfil WHERE user_id_api = ?
+        val cursor = db.query(
+            tabelaPerfil,
+            null, // null = todas as colunas
+            "$colUserIdApi = ?", // Cláusula WHERE
+            arrayOf(userIdApi), // Valor do WHERE
+            null, null, null
+        )
 
         var perfil: PerfilLocal? = null
+
+        // Se o cursor encontrar algum resultado (moveToNext)
         if (cursor.moveToNext()) {
+            // Reconstrói o objeto PerfilLocal pegando os dados das colunas
             perfil = PerfilLocal(
                 id = cursor.getLong(cursor.getColumnIndexOrThrow(colId)),
                 userIdApi = cursor.getString(cursor.getColumnIndexOrThrow(colUserIdApi)),
@@ -80,7 +119,8 @@ class PerfilDao(context: Context) {
                 foto = cursor.getString(cursor.getColumnIndexOrThrow(colFoto))
             )
         }
-        cursor.close()
+
+        cursor.close() // Importante: fecha o cursor para liberar memória
         return perfil
     }
 }

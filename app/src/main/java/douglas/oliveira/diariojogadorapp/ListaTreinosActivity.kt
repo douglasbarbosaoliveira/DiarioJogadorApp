@@ -18,7 +18,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * Activity responsável por listar os Treinos.
+ * Funcionalidades: Listagem (GET), Navegação para Cadastro, Menu de Edição/Exclusão.
+ */
 class ListaTreinosActivity : AppCompatActivity() {
+
+    // Componentes visuais e de dados
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: TreinoAdapter
     private var listaTreinos: List<Treino> = emptyList()
@@ -27,35 +33,47 @@ class ListaTreinosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_treinos)
 
-        // Localiza o TextView que está dentro do <include layout="@layout/layout_header" />
+        // --- Configuração do Cabeçalho (Header) ---
+        // Busca o TextView que está dentro do layout incluído (<include layout="layout_header">)
         val txtHeader = findViewById<TextView>(R.id.txtNomeHeader)
-
-        // Recupera o nome salvo no login
         val nomeUsuario = SessionManager.getName(this)
-
-        // Define o texto (Ex: "Olá, Douglas")
         txtHeader.text = "Olá, $nomeUsuario"
 
+        // --- Configuração da Lista (RecyclerView) ---
         recycler = findViewById(R.id.recyclerTreinos)
-        recycler.layoutManager = LinearLayoutManager(this)
+        recycler.layoutManager = LinearLayoutManager(this) // Lista vertical padrão
 
+        // --- Botão Flutuante (FAB) ---
         findViewById<FloatingActionButton>(R.id.fabAdicionarTreino).setOnClickListener {
+            // Abre o formulário limpo para criar um novo treino
             startActivity(Intent(this, FormTreinoActivity::class.java))
         }
 
-        registerForContextMenu(recycler) // ESSENCIAL PARA O DELETE FUNCIONAR
+        // IMPORTANTE: Registra a RecyclerView para aceitar menus de contexto (Long Click)
+        // Sem isso, o método onContextItemSelected não seria chamado corretamente.
+        registerForContextMenu(recycler)
     }
 
+    /**
+     * onResume é chamado quando a Activity volta a ficar visível.
+     * Ideal para recarregar a lista caso o usuário tenha adicionado/editado um treino e voltado.
+     */
     override fun onResume() {
         super.onResume()
         carregarTreinos()
     }
 
+    /**
+     * Busca a lista de treinos na API (GET /treinos).
+     */
     private fun carregarTreinos() {
         val service = ClientRetrofit.getCliente(this).create(DiarioService::class.java)
+
+        // Chamada Assíncrona
         service.buscarTreinos().enqueue(object : Callback<List<Treino>> {
             override fun onResponse(call: Call<List<Treino>>, response: Response<List<Treino>>) {
                 if (response.isSuccessful) {
+                    // Atualiza a lista local e o Adapter
                     listaTreinos = response.body() ?: emptyList()
                     adapter = TreinoAdapter(listaTreinos)
                     recycler.adapter = adapter
@@ -69,16 +87,24 @@ class ListaTreinosActivity : AppCompatActivity() {
         })
     }
 
-    // Lógica para o Menu de Contexto (Delete)
+    /**
+     * Gerencia o clique nas opções do Menu de Contexto (Editar/Excluir).
+     * Esse menu aparece quando o usuário segura o dedo sobre um item da lista.
+     */
     override fun onContextItemSelected(item: MenuItem): Boolean {
+        // Validação de segurança: verifica se a posição clicada é válida
         if (adapter.posicaoClicada == -1 || adapter.posicaoClicada >= listaTreinos.size) {
             return super.onContextItemSelected(item)
         }
 
+        // Recupera o objeto Treino específico que foi clicado
         val treino = listaTreinos[adapter.posicaoClicada]
 
         return when (item.itemId) {
+            // Caso: EDITAR
             R.id.menu_editar_treino -> {
+                // Cria um Intent e coloca TODOS os dados do treino nele (Extras)
+                // Isso permite que o formulário já abra preenchido
                 val intent = Intent(this, FormTreinoActivity::class.java).apply {
                     putExtra("TREINO_ID", treino.id)
                     putExtra("TREINO_DATA", treino.data)
@@ -91,6 +117,7 @@ class ListaTreinosActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+            // Caso: EXCLUIR
             R.id.menu_deletar_treino -> {
                 deletarTreino(treino.id ?: "")
                 true
@@ -99,26 +126,25 @@ class ListaTreinosActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Chama a API para deletar um treino (DELETE /treinos/{id}).
+     */
     private fun deletarTreino(id: String) {
         val service = ClientRetrofit.getCliente(this).create(DiarioService::class.java)
 
-        // 1. service.deleteTreino(id).enqueue(object : Callback<Void> {...
         service.deleteTreino(id).enqueue(object : Callback<Void> {
-
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@ListaTreinosActivity, "Treino excluído!", Toast.LENGTH_SHORT).show()
-                    carregarTreinos() // Recarrega a lista
+                    Toast.makeText(this@ListaTreinosActivity, "Treino excluído com sucesso!", Toast.LENGTH_SHORT).show()
+                    carregarTreinos() // Recarrega a lista para remover o item visualmente
                 } else {
-                    Toast.makeText(this@ListaTreinosActivity, "Falha ao excluir.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ListaTreinosActivity, "Falha ao excluir treino.", Toast.LENGTH_SHORT).show()
                 }
-            } // <--- FECHA O onResponse
-
-            // 2. IMPLEMENTAÇÃO OBRIGATÓRIA: onFailure
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@ListaTreinosActivity, "Erro de rede ao deletar.", Toast.LENGTH_SHORT).show()
             }
 
-        }) // <--- FECHA O OBJETO CALLBACK E O MÉTODO ENQUEUE
-    } // <--- FECHA A FUNÇÃO deletarTreino
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@ListaTreinosActivity, "Erro de rede.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 }
