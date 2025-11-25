@@ -22,11 +22,11 @@ O projeto destaca-se por utilizar uma **Arquitetura Híbrida de Dados**:
 
 | Login & Auth | Dashboard | Listagem de Jogos |
 |:---:|:---:|:---:|
-| <img src="URL_DA_IMAGEM_LOGIN" width="200" /> | <img src="URL_DA_IMAGEM_MENU" width="200" /> | <img src="URL_DA_IMAGEM_LISTA" width="200" /> |
+| <img src="screens/telalogin_screen.png" width="200" /> | <img src="screens/telainicial_screen.png" width="200" /> | <img src="screens/listajogos_screen.png" width="200" /> |
 
-| Formulário de Jogo | Perfil (Câmera) | Detalhes de Treino |
+| Formulário de Jogo | Perfil (Câmera) | Formulário de Treino |
 |:---:|:---:|:---:|
-| <img src="URL_DA_IMAGEM_FORM" width="200" /> | <img src="URL_DA_IMAGEM_PERFIL" width="200" /> | <img src="URL_DA_IMAGEM_TREINO" width="200" /> |
+| <img src="screens/cadastrarjogo_screen.png" width="200" /> | <img src="screens/perfil_screen.png" width="200" /> | <img src="screens/cadastrartreino_screen.png" width="200" /> |
 
 ---
 
